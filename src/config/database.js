@@ -4,7 +4,7 @@ module.exports = {
   port: 5432,
   username: "postgres",
   password: "postgres",
-  database: "planetburger",
+  database: "devburger",
   logging: console.log, // Ativa o log detalhado
   define: {
     timestamps: true,

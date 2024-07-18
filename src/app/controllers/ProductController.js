@@ -1,40 +1,43 @@
 import * as Yup from 'yup';
 import Product from '../models/Product';
 
-class ProductController { 
+
+class ProductController {
     async store(request, response) {
-        const schema = Yup.object ({
+        const schema = Yup.object({
             name: Yup.string().required(),
             price: Yup.number().required(),
             category: Yup.string().required(),
         });
 
-        
+       
+
         try {
-            schema.validateSync(request.body, { abortEarly: false});
+            schema.validateSync(request.body, { abortEarly: false });
+
         } catch (err) {
-            return response.status(400).json({ error: err.errors})
+            return response.status(400).json({ error: err.erros});
         }
 
-        const { filename: path } = request.file;
+        const { fieldname: path  } = request.file;
         const { name, price, category } = request.body;
 
         const product = await Product.create({
-             name,
-             price,
-             category,
-             path,
+            name,
+            price,
+            category,
+            path,
 
         });
 
+      return response.status(201).json(product);
 
-        return response.status(201).json(product);
     }
 
     async index(request, response) {
-        const prodcuts = await Product.findAll();
+        const products = await Product.findAll();
 
-        return response.json(prodcuts);
+        return response.json(products);
     }
 }
 

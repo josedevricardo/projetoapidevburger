@@ -1,13 +1,14 @@
 import multer from 'multer';
-import { v4 } from 'uuid';
+import { v4 } from 'uuid'; 
+import { extname, resolve } from 'node:path';
 
-import { extname, resolve } from 'node:path'; 
+// Função para validar tipo de arquivo (exemplo para imagens)
+
 
 export default {
-    storage: multer.diskStorage ({
+    Storage: multer.diskStorage({
         destination: resolve(__dirname, '..', '..', 'uploads'),
         filename: (request, file, callback) => 
-             callback(null, v4() + extname(file.originalname)),
-        
+            callback(null, v4() + extname(file.originalname)),
     }),
 };
